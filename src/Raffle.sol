@@ -74,6 +74,37 @@ contract Raffle is VRFConsumerBaseV2 {
             return (upkeepNeeded, "0x0");
         }
 
+        /**getting a random winner */
+        function performUpkeep(bytes /**performData */) external {
+            (bool upkeepNeeded, ) = checkUpkeep("");
+            if (!upkeepNeeded) {
+                revert Raffle__NoUpkeepNeeded();
+            }
+            /**Check if enough time has passed */
+            if ((block.timestamp - lastTimestamp) > i_interval) {
+                revert Raffle__TransferFailed(
+                    address(this).balance, s_players.length, uint256(s_raffleState)
+                );
+            }
+            s_raffleState = RaffleState.CALCULATING;
+
+            //Get a winner
+            uint256 requestId = i_vrfCoordinator.requestRandomWords(
+                i_gasLane, i_subscriptionId,
+                REQUEST_CONFIRMATIONS, i_callbackGasLimit , NUM_WORDS
+            );
+
+            emit RequestedRaffleWinner(requestId);
+        }
+
+        function fullfillRandomWords(uint256 /**requestId */, uint256[] memory randomWords) internal override {
+            //Effects
+            uint256 indexOfWinner = randomWords[0] % s_players.length;
+            address payable winner = s_players[indexOfWinner];
+            s_recentWinner = winner;
+            s_raffleState = RaffleState.OPEN;
+        }
+
 
 
 }
