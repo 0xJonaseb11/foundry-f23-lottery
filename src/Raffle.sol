@@ -8,6 +8,7 @@ contract Raffle is VRFConsumerBaseV2 {
 
     error Raffle__NotEnoughEthSent();
     error Raffle__TransferFailed();
+    error Raffle__RaffleNoSuccess();
     error Raffle__RaffleNotOpen();
     error Raffle__NoUpKeepNeeded(
         uint256 currentBalance, uint256 numPlayers, 
@@ -80,7 +81,7 @@ contract Raffle is VRFConsumerBaseV2 {
             if (!upkeepNeeded) {
                 revert Raffle__NoUpkeepNeeded();
             }
-            /**Check if enough time has passed */
+            //Check if enough time has passed 
             if ((block.timestamp - lastTimestamp) > i_interval) {
                 revert Raffle__TransferFailed(
                     address(this).balance, s_players.length, uint256(s_raffleState)
@@ -113,7 +114,7 @@ contract Raffle is VRFConsumerBaseV2 {
             //Interactions
             (bool success, ) = winner.call{ value: address(this).balance}("");
             if (!success) {
-                revert();
+                revert Raffle__RaffleNoSuccess();
             }
         }
 
