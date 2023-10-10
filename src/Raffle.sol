@@ -49,7 +49,24 @@ contract Raffle is VRFConsumerBaseV2 {
             s_raffleState = RaffleState.OPEN;
         }
 
-        function 
+        function enterRaffle() external payable {
+            require(msg.value >= i_entranceFee, "Not Enough ETH");
+
+            //Effective way
+            if (msg.value < i_entranceFee) {
+                revert Raffle__NotEnoughEthSent();
+            }
+            if (s_raffleState != RaffleState.OPEN) {
+                revert Raffle__RaffleNotOpen();
+            }
+            s_players.push(payable(msg.sender));
+            emit EnteredRaffle(msg.sender);
+        }
+
+        function checkUpkeep(bytes memory /**CheckData */
+        ) public view returns(bool upkeepNeeded, bytes memory /**performData */) {
+            bool timeHasPassed = (block.timestamp - s_lastTimestamp)
+        }
 
 
 
