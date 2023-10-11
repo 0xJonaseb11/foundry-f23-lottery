@@ -34,8 +34,37 @@ contract HelperConfig is Script {
             NetworkConfig(
                 entranceFee: 0.01 ether,
                 interval: 30,
-                vrfCoordinator
-            )
+                vrfCoordinator: /**Sepolia vrfCoordinator address */,
+                gasLane: /**Sepolia keyhash */,
+                subscriptionId: 1893 /**Sepolia subId */,
+                callbackGasLimit: 500000,
+                link: /**Sepolia address token */,
+                deployerKey: vm.envUint("PRIVATE_KEY")
+            );
+    }
 
+    function getOrCreateAnvilEthConfig() public pure returns(NetworkConfig memory) {
+        if (activeNetworkConfig.vrfCoordinator != address(0)) {
+            return activeNetworkConfig;
+        }
+
+        uint96 baseFee = 0.25 ether;
+        uint96 gasPriceLink = 1e9;
+
+        vm.startBroadcast();
+        VRFCoordinatorV2Mock vrfCoordinatorV2Mock = new VRFCoordinatorV2Mock(baseFee, gasPriceLink);
+        LinkToken link = new LinkToken();
+        vm.stopBroadcast();
+
+        return NetworkConfig({
+            entranceFee: 0.01 ether,
+            interval: 30,
+            vrfCoordinator: address(vrfCoordinatorV2Mock),
+            gasLane: keyhash,
+            subscriptionId: 0, /**Our script will add this */
+            callbackGasLimit: 500000,
+            link: address(link),
+            deployerKey: DEFAULT_ANVIL_KEY
+        });
     }
 }
