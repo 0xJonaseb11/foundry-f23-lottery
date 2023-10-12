@@ -34,3 +34,14 @@ endif
 anvil:; anvil -m 'test test test test test test test test test test test junk' --steps-tracing --block-time 1
 
 deploy:; @forge script script/DeployRaffle.s.sol:DeployRaffle $(NETWORK_ARGS)
+
+createSubscription:
+     @forge script scrpt/Interactions.s.sol:CreateSubscription $(NETWORK_ARGS)
+
+addConsumer:
+       @forge script script/Interactions.s.sol:addConsumer $(NETWORK_ARGS)
+
+
+fundSubscription:
+        @forge script script/Interactions.s.sol:FundSubscription $(NETWORK_ARGS)
+        
