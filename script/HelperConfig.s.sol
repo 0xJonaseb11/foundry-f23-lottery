@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { VRFCoordinatorV2mock } from "../test/mocks/VRFCoordinatorV2mock.sol";
-import { LinkToken } from ../test/mocks/LinkToken.sol";
-import { Script } from "forge-std/Script.sol";
+import { VRFCoordinatorV2Mock } from "../test/mocks.VRFCoordinatorV2Mock.sol";
+import { LinkToken } from "../test/mocks/LinkToken.sol";
+import { Script, Console } from "forge-std/Script.sol";
 
 contract HeplperConfig is Script {
     NetworkConfig public activeNetworkConfig;
@@ -18,7 +18,7 @@ contract HeplperConfig is Script {
         uint256 deployerKey;
     }
 
-    uint256 public DEFAULT_ANVIL_PRIVATE_KEY =         0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
+    uint256 public DEFAULT_ANVIL_PRIVATE_KEY = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
 
     
     event HelperConfig__CreateMockVRFCoordinator(address vrfCoordinator);
@@ -41,8 +41,7 @@ contract HeplperConfig is Script {
             vrfCoordinatorV2: 0x271682DEB8C4E0901D1a1550aD2e64D568E69909,
             link: 0x514910771AF9Ca656af840dff83E8264EcF986CA,
             deployerKey: vm.envUint("PRIVATE_KEY")
-        });
-        
+        });4
     }
 
     function getOrCreateAnvilEthConfig() public returns
