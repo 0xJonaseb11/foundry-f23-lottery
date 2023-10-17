@@ -76,7 +76,7 @@ contract RaffleTest is StdCheats, Test {
         vm.expectRevert("nonexistent request");
         //vm.mockCall could be used here
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandomWords(0, address(raffle));
-        vm.expectRevert(nonexistent request);
+        vm.expectRevert("nonexistent request");
 
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandomWords(1, address(raffle));
 
