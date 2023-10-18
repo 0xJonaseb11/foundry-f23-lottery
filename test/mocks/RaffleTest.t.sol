@@ -129,7 +129,7 @@ contract RaffleTest is StdCheats, Test {
     }
 
     //To be done later
-    function testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed() publlic {}
+    function testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed() public {}
 
     function testUpkeepReturnsTrueWhenParameterIsGood() public {
         //Arrange

@@ -3,7 +3,7 @@ pragma solidity ^0.8.19;
 
 import { VRFCoordinatorV2Mock } from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import { LinkToken } from "../test/mocks/LinkToken.sol";
-import { Script, Console } from "forge-std/Script.sol";
+import { Script, console } from "forge-std/Script.sol";
 
 contract HeplperConfig is Script {
     NetworkConfig public activeNetworkConfig;
@@ -59,7 +59,7 @@ contract HeplperConfig is Script {
         LinkToken link = new LinkToken();
         vm.stopBroadcast();
 
-        emit HelperConfig__CreateMockVRFCoordinator(address vrfCoordinatorV2Mock);
+        emit HelperConfig__CreateMockVRFCoordinator(vrfCoordinatorV2Mock);
 
          anvilNetworkConfig = NetworkConfig({
             subscriptionId: 0, // If left as 0, our scripts will create one!
@@ -72,7 +72,4 @@ contract HeplperConfig is Script {
             deployerKey: DEFAULT_ANVIL_PRIVATE_KEY
         });
     }
-     }
-
-
 }

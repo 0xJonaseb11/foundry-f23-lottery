@@ -165,7 +165,7 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface, ConfirmedOwner {
 
         uint96 oldBalance = s_subscriptions[_subId].balance;
         s_subscriptions[_subId].balance += _amount;
-        emit SubscriptionFunded(_subId), oldBalance, oldBalance + _amount);
+        emit SubscriptionFunded((_subId), oldBalance, oldBalance + _amount);
     }
 
     function requestRandomWords(
@@ -207,7 +207,7 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface, ConfirmedOwner {
     }
 
     function cancelSubscription(uint64 _subId, address _to) external override onlySubOwner(_subId) nonReentrant {
-        emit SubscriptionCanceled(_subId, address _to, s_subscription[_subId].balance);
+        emit SubscriptionCanceled(_subId, _to, s_subscription[_subId].balance);
         delete (s_subscriptions[_subId]);
     }
 

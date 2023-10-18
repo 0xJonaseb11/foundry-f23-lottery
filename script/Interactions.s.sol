@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { Script, Console } from "forge-std/Script.sol";
+import { Script, console } from "forge-std/Script.sol";
 import { HelperConfig } from "./HelperConfig.s.sol";
 import { Raffle } from "../src/Raffle.sol";
-import { DevOps } from "foundry-devops/src/DevOpsTools.sol";
+import { DevOpsTools } from "foundry-devops/src/DevOpsTools.sol";
 import { VRFCoordinatorV2Interface } from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import { LinkToken } from "../test/mocks/LinkToken.sol";
 
@@ -25,7 +25,7 @@ contract CreateSubscription is Script {
         ) = helperConfig.CreateSubscription(vrfCoordinatorV2, deployerKey);
     }
 
-    function CreateSubscription (
+    function createSubscription (
         address vrfCoordinatorV2, uint256 deployerKey
     ) public returns(uint64) {
         console.log("Creating subscription on chainId: ", block.chainid);
@@ -39,7 +39,7 @@ contract CreateSubscription is Script {
     }
 
     function run() external returns(uint64) {
-        return CreateSubscription();
+        return createSubscription();
     }
 }
 
