@@ -198,6 +198,85 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface, ConfirmedOwner {
         return (s_subscriptions[_subId].balance, 0, s_subscriptions[_subId].owner, s_consumers[_subId]);
     }
 
+    function cancelSubscription(uint64 _subId, address _to) external override onlySubOwner(_subId) nonReentrant {
+        emit SubscriptionCanceled(_subId, address _to, s_subscription[_subId].balance);
+        delete (s_subscriptions[_subId]);
+    }
+
+    modifier onlySubOwner(uint64 _subId) {
+        address owner = s_subscriptions[_subId].owner;
+        if (owner == address(0)) {
+            revert InvalidSubscription();
+        }
+        if (msg.sender != owner) {
+            revert MustBeSubOwner(owner);
+        }
+        _;
+    }
+
+    function getRequestConfig() external pure override returns(uint16, uint32, bytes32[] memory) {
+        return (3, 2000000, new bytes32[](0));
+    }
+
+    function addConsumer(uint64 _subId, address _consumer) external override  onlySubOwner(_subId) {
+        if (s_consumers[_subId].length == MAX_CONSUMERS) {
+            revert TooManyConsumers();
+        }
+
+        if (consumerIsAdded(_subId, _consumer)) {
+            return;
+        }
+        s_consumers[_subId].push(_consumer);
+        emit ConsumerAdded(_subId, _consumer);
+    }
+
+    function removeConsumer(uint64 _subId, _consumer) external override onlySubOwner(_subId) onlyValidConsumer(_subId, _consumer) nonReentrant {
+        address[] storage consumers = s_consumers[_subId];
+        for (uint256 i = 0; i < consumers.length; i++ ) {
+            if (consumers[i] == _consumer) {
+                address last = consumers[consumers.length - 1];
+                consumers[i] = last;
+                consumers.pop();
+                break;
+            }
+        }
+        
+        emit ConsumerRemoved(_subId, _consumer);
+    }
+
+    function getConfig() external pure returns(
+        uint16 minimumRequestConfirmations,
+        uint32 maxGasLimit,
+        uint32 gasAfterPaymentCalculation
+    ) {
+        return ( 4, 2_500_000, 2_700, 33285);
+    }
+
+    function getFeeConfig() external pure returns(
+        uint32 fulfillmentFlatFeeLinkPPMTier1,
+        uint32 fulfillmentFlatFeeLinkPPMTier2,
+        uint32 fulfillmentFlatFeeLinkPPMTier3,
+        uint32 fulfillmentFLatFeeLinkPPMTier4,
+        uint32 fulfillmentFlatFeeLinkPPMTIer5,
+        uint24 reqsForTier2,
+        uint24 reqsForTier3,
+        uint24 reqsForTier4,
+        uint24 reqsForTier5
+    ) {
+        return ( 
+            100000, // 0.1 LINK
+            100000, // 0.1 LINK
+            100000, // 0.1 LINK
+            100000, // 0.1 LINK
+            100000, // 0.1 LINK
+            0,
+            0,
+            0,
+            0,
+        );
+
+    }
+
     
 
 
