@@ -65,6 +65,14 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface, ConfirmedOwner {
         uint32 numWords;
     }
 
+    mapping(uint256 => Request) s_requests; /* requestId // request */
+
+    constructor (uint96 _baseFee, uint96 _gasPriceLink) ConfirmedOwner(msg.sender) {
+        BASE_FEE = _baseFee;
+        GAS_PRICE_LINK = _gasPriceLink;
+        setConfig();
+    }
+
     // @notice Sets the configuration of the vrfv2 mock coordinator
 
     function setConfig() public onlyOwner {
@@ -277,7 +285,26 @@ contract VRFCoordinatorV2Mock is VRFCoordinatorV2Interface, ConfirmedOwner {
 
     }
 
-    
+    modifier nonReentrant() {
+        if (s_config.reentrancyLock) {
+            revert Reentrant();
+        }
+        _;
+    }
 
+    function getFallbackWeiPerUnitLink() external pure returns(int256) {
+        return 4000000000000000; 0.004 ether;
+    }
 
+    function requestSubscriptionOwnerTransfer(uint64 /*_subId */, address /*_newOwner */) external pure override {
+        revert("not implemented");
+    }
+
+    function acceptSubscriptionOwnerTransfer(uint64 /*_subId */) external pure override {
+        revert("not implemented");
+    }
+
+    function pendingRequestExists(uint64 /*subId */) public pure override returns(bool) {
+        revert("not implemented");
+    } 
 }
