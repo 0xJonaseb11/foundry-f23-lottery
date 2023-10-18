@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { VRFCoordinatorV2Mock } from "../test/mocks.VRFCoordinatorV2Mock.sol";
+import { VRFCoordinatorV2Mock } from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import { LinkToken } from "../test/mocks/LinkToken.sol";
 import { Script, Console } from "forge-std/Script.sol";
 
@@ -41,7 +41,7 @@ contract HeplperConfig is Script {
             vrfCoordinatorV2: 0x271682DEB8C4E0901D1a1550aD2e64D568E69909,
             link: 0x514910771AF9Ca656af840dff83E8264EcF986CA,
             deployerKey: vm.envUint("PRIVATE_KEY")
-        });4
+        });
     }
 
     function getOrCreateAnvilEthConfig() public returns

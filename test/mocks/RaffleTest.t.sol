@@ -252,7 +252,7 @@ contract RaffleTest is StdCheats, Test {
         //Act
         vm.recordLogs();
         raffle.performUpkeep(""); //emits reqeustId
-        vm.Log[] memmory entries = vm.getRecordedLogs();
+        vm.Log[] memory entries = vm.getRecordedLogs();
         bytes32 requestId = entries = entries[1].topics[1]; // get the requestId from the logs
 
         vrfCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandmWords(uint256(requestId), address(raffle));
