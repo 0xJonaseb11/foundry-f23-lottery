@@ -9,7 +9,7 @@ import { VRFCoordinatorV2Mock } from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import { LinkToken } from "../test/mocks/LinkToken.sol";
 
 contract CreateSubscription is Script {
-    function CreateSubscriptionUsingConfig() public returns(uint64) {
+    function createSubscriptionUsingConfig() public returns(uint64) {
         HelperConfig helperConfig = new HelperConfig();
 
         (
@@ -22,7 +22,7 @@ contract CreateSubscription is Script {
             ,
             ,
             uint256 deployerKey
-        ) = helperConfig.CreateSubscription(/*vrfCoordinatorV2, deployerKey*/);
+        ) = helperConfig.createSubscription(vrfCoordinatorV2, deployerKey);
     }
 
     function createSubscription (
