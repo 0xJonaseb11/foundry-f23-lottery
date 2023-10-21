@@ -4,8 +4,9 @@ pragma solidity ^0.8.19;
 import { VRFCoordinatorV2Mock } from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import { LinkToken } from "../test/mocks/LinkToken.sol";
 import { Script, console } from "forge-std/Script.sol";
+import { Raffle } from "../src/Raffle.sol";
 
-contract HeplperConfig is Script {
+contract HelperConfig is Script {
     NetworkConfig public activeNetworkConfig;
 
     struct NetworkConfig {
@@ -45,7 +46,7 @@ contract HeplperConfig is Script {
     }
 
     function getOrCreateAnvilEthConfig() public returns
-     (NetwokConfig memory anvilNetworkConfig) {
+     (NetworkConfig memory anvilNetworkConfig) {
         if (activeNetworkConfig.vrfCoordinatorV2 != address(0)) {
             return activeNetworkConfig;
         }
