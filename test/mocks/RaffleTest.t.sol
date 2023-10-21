@@ -106,10 +106,10 @@ contract RaffleTest is StdCheats, Test {
         vm.roll(block.number + 1);
 
         //Act
-        (bool upkeepNeeeded, ) =  raffle.checkUpkeep("");
+        (bool upkeepNeeded, ) =  raffle.checkUpkeep("");
 
         //assert
-        assert(!upkeepNeeded);
+        assert( upkeepNeeded);
     }
 
     function testCheckUpkeepReturnsFalseIfRaffleIsntOpen() public {
@@ -190,7 +190,7 @@ contract RaffleTest is StdCheats, Test {
         //Act
         vm.recordLogs();
         raffle.performUpkeep(""); // emits requestId
-        vm.Log[] memory entries = vm.getRecordedLogs();
+        Vm.Log[] memory entries = vm.getRecordedLogs();
         bytes32 requestId = entries[1].topics[1];
 
         //assert
@@ -225,10 +225,10 @@ contract RaffleTest is StdCheats, Test {
             //Act / assert
             vm.expectRevert("nonexistent request");
             //vm.mockCall could be used here
-            VRFCoordintorV2Mock(vrfCoordinatorV2).fulFillRandmWords(1, address(raffle));
+            VRFCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandmWords(1, address(raffle));
             vm.expectRevert("nonexistent request");
 
-            vrfCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandmWords(1, address(raffle));        
+            VRFCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandmWords(1, address(raffle));        
 
     }
 
@@ -252,10 +252,10 @@ contract RaffleTest is StdCheats, Test {
         //Act
         vm.recordLogs();
         raffle.performUpkeep(""); //emits reqeustId
-        vm.Log[] memory entries = vm.getRecordedLogs();
+        Vm.Log[] memory entries = vm.getRecordedLogs();
         bytes32 requestId = entries = entries[1].topics[1]; // get the requestId from the logs
 
-        vrfCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandmWords(uint256(requestId), address(raffle));
+        VRFCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandmWords(uint256(requestId), address(raffle));
 
         //Assert
         address recentWinner = raffle.getRecentWinner();

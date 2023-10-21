@@ -101,8 +101,8 @@ contract RaffleTest is StdCheats, Test {
         //Act
         vm.recordLogs();
         raffle.performUpkeep(""); //emits requestId
-        vm.Log[] memory entries = vm.getRecordedLogs();
-        bytes32 requestId = enteries[1]; //get the requestId from the logs
+        Vm.Log[] memory entries = vm.getRecordedLogs();
+        bytes32 requestId = entries[1]; //get the requestId from the logs
 
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulFillRandomWords(uint256(requestId, address(raffle)));
 
@@ -116,7 +116,7 @@ contract RaffleTest is StdCheats, Test {
         assert(recentWinner == expectedWinner);
         assert(uint256(raffleState) == 0);
         assert(winnerBalance == startingBalance + prize);
-        assert(endingTimestampTimestamp > startingTimestamp);
+        assert(endingTimestamp > startingTimestamp);
     }
     
 }

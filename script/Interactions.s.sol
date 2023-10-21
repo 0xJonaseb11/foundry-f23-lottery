@@ -5,7 +5,7 @@ import { Script, console } from "forge-std/Script.sol";
 import { HelperConfig } from "./HelperConfig.s.sol";
 import { Raffle } from "../src/Raffle.sol";
 import { DevOpsTools } from "foundry-devops/src/DevOpsTools.sol";
-import { VRFCoordinatorV2Interface } from "../test/mocks/VRFCoordinatorV2Mock.sol";
+import { VRFCoordinatorV2Mock } from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import { LinkToken } from "../test/mocks/LinkToken.sol";
 
 contract CreateSubscription is Script {
@@ -22,7 +22,7 @@ contract CreateSubscription is Script {
             ,
             ,
             uint256 deployerKey
-        ) = helperConfig.CreateSubscription(vrfCoordinatorV2, deployerKey);
+        ) = helperConfig.CreateSubscription(/*vrfCoordinatorV2, deployerKey*/);
     }
 
     function createSubscription (
@@ -33,7 +33,7 @@ contract CreateSubscription is Script {
         uint64 subId = VRFCoordinatorV2Mock(vrfCoordinatorV2).createSubscription();
         vm.stopBroadcast();
         console.log("Your subscription Id is: ", subId);
-        cosole.log("Please update the subscription in HelperConfig.s.sol");
+        console.log("Please update the subscription in HelperConfig.s.sol");
 
         return subId;
     }
@@ -51,8 +51,8 @@ contract AddConsumer is Script {
         uint64 subId,
         uint256 deployerKey
     ) public {
-        cosole.log("Adding consumer contract:". contractToAddToVrf);
-        cosole.log("Using vrfCoordinator: ", vrfCoordinator);
+        console.log("Adding consumer contract:". contractToAddToVrf);
+        console.log("Using vrfCoordinator: ", vrfCoordinator);
         vm.startBroadcast(deployerKey);
         VRFCoordinatorV2Mock(vrfCoordinator).addConsumer(subId, contractToAddToVrf);
         vm.stopBroadcast();
@@ -73,7 +73,7 @@ contract AddConsumer is Script {
             ,
             uint256 deployerKey
         ) = helperConfig.activeNetworkConfig();
-        addConsumer(mostRecentlyDeployed, vrfCoodinatorV2, subId, deployerKey);
+        addConsumer(mostRecentlyDeployed, vrfCoordinatorV2, subId, deployerKey);
     }
 
     function run() external {
