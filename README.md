@@ -1,3 +1,5 @@
+### Author: @Jonas-sebera
+
 # foundry-f23-lottery
 A foundry-f23 lottery project with transparent smart contracts 
 
@@ -75,7 +77,7 @@ This code is to create a proveably random smart contract lottery
   - [Scripts](#scripts)
   - [Estimate gas](#estimate-gas)
 - [Formatting](#formatting)
-    - [Jonas sebera](#jonas-sebera)
+    - [@Jonas-sebera](#jonas-sebera)
 
 # Getting Started
 
@@ -198,4 +200,4 @@ forge fmt
 ```
 <hr>
 
-### Jonas sebera
+### @Jonas-sebera
