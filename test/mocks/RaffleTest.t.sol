@@ -106,10 +106,11 @@ contract RaffleTest is StdCheats, Test {
         vm.roll(block.number + 1);
 
         //Act
-        (bool upkeepNeeded, ) =  raffle.checkUpkeep("");
+        (bool upkeepNeeded,  ) =  raffle.checkUpkeep("");
 
         //assert
         assert( upkeepNeeded);
+        
     }
 
     function testCheckUpkeepReturnsFalseIfRaffleIsntOpen() public {
@@ -198,6 +199,7 @@ contract RaffleTest is StdCheats, Test {
         //requestId = raffle.getLastRequestId();
         assert(uint256(requestId) > 0);
         assert(raffleState == 1); // 0 = open , 1 = calculating
+       
     }
 
     ////////////////////////////////////////
