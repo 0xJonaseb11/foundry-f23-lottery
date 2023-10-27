@@ -1,6 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
+/**
+*@author @Jonas-sebera
+*@dev This handles contract interactions 
+*/
+
 import { Script, console } from "forge-std/Script.sol";
 import { HelperConfig } from "./HelperConfig.s.sol";
 import { Raffle } from "../src/Raffle.sol";

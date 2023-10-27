@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
+/**
+*@author @Jonas-sebera
+*@dev This contract helps in configurations o needed tasks like networks etc
+*/
 import {VRFCoordinatorV2Mock} from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import {LinkToken} from "../test/mocks/LinkToken.sol";
 import {Script} from "forge-std/Script.sol";

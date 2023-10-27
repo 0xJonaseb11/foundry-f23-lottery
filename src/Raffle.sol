@@ -2,6 +2,11 @@
 
 pragma solidity ^0.8.19;
 
+/**
+*@author @Jonas-sebera 
+*@dev This contract allows the players to interact with lottery basically
+*/
+
 import { VRFCoordinatorV2Interface } from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import { VRFConsumerBaseV2 } from "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import { AutomationCompatibleInterface } from "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
