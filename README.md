@@ -47,9 +47,6 @@ This code is to create a proveably random smart contract lottery
 
 <hr>
 
-
-
-
 <!-- @format -->
 
 # Foundry Smart Contract Lottery
