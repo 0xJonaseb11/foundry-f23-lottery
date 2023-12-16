@@ -6,12 +6,11 @@ Author: @Jonas-sebera
 
 A foundry-f23 lottery project with transparent smart contracts
 
-
 ## About
 
 This code is to create a proveably random smart contract lottery
 
-#### What we want it to do?
+### What we want it to do?
 
 1. Users can enter by paying a ticket
 2. The ticket fees are going to the winner during the draw
@@ -50,8 +49,6 @@ This code is to create a proveably random smart contract lottery
      forge test 
      forge test -m function_Name -vvv
      make test   
-
------------
 
 <!-- @format -->
 
@@ -202,6 +199,6 @@ forge fmt
 
 ```
 
------------------
+---
 
  @Jonas-sebera
