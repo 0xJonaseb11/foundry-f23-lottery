@@ -1,19 +1,20 @@
-### Author: @Jonas-sebera
+Author: @Jonas-sebera
+
+ ----------------
 
 # foundry-f23-lottery
 
 A foundry-f23 lottery project with transparent smart contracts
 
-### Proveably Random Raffle Contracts
 
-#### About
+## About
 
 This code is to create a proveably random smart contract lottery
 
 #### What we want it to do?
 
 1. Users can enter by paying a ticket
-   2. The ticket fees are going to the winner during the draw
+2. The ticket fees are going to the winner during the draw
 3. After X period of time, the lottery will automatically draw a winner
    1. And this one will be done programmatically
 4. Usind chainlink VRFV and Chainlink Automation
@@ -50,7 +51,7 @@ This code is to create a proveably random smart contract lottery
      forge test -m function_Name -vvv
      make test   
 
-<hr>
+-----------
 
 <!-- @format -->
 
@@ -59,7 +60,7 @@ This code is to create a proveably random smart contract lottery
 # Table of contents
 
 - [foundry-f23-lottery](#foundry-f23-lottery)
-    - [Proveably Random Raffle Contracts](#proveably-random-raffle-contracts)
+      - [Proveably Random Raffle Contracts](#proveably-random-raffle-contracts)
       - [About](#about)
       - [What we want it to do?](#what-we-want-it-to-do)
       - [Tests](#tests)
@@ -201,6 +202,6 @@ forge fmt
 
 ```
 
-<hr>
+-----------------
 
  @Jonas-sebera
