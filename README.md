@@ -1,7 +1,8 @@
 ### Author: @Jonas-sebera
 
 # foundry-f23-lottery
-A foundry-f23 lottery project with transparent smart contracts 
+
+A foundry-f23 lottery project with transparent smart contracts
 
 ### Proveably Random Raffle Contracts
 
@@ -17,33 +18,37 @@ This code is to create a proveably random smart contract lottery
    1. And this one will be done programmatically
 4. Usind chainlink VRFV and Chainlink Automation
    1. Chainlink VRF -> Randomness
-   2. Chainlink Automation -> Time based trigger    
+   2. Chainlink Automation -> Time based trigger
 
+#### Tests
 
- #### Tests
  1. Write some deploy scripts
  2. Write our tests
     1. Work on local chain
     2. Forked testnet
-    3. Forked Mainnet 
+    3. Forked Mainnet
 
-#### For easy debuggging purpose,
+#### For easy debuggging purpose
+
      forge coverage --report debug
      forge test --debug function_Name 
+
 #### create a coverage.txt file
+
      forge coverage --report debug > coverage.txt     
 
-#### Tests that need to be covered ,
+#### Tests that need to be covered
+
      Unit tests
      Integration tests
      Forked tests
      Staging tests -> On a mainnet
 
-#### To test your smart contracts, 
+#### To test your smart contracts
+
      forge test 
      forge test -m function_Name -vvv
      make test   
-
 
 <hr>
 
@@ -52,15 +57,16 @@ This code is to create a proveably random smart contract lottery
 # Foundry Smart Contract Lottery
 
 # Table of contents
+
 - [foundry-f23-lottery](#foundry-f23-lottery)
     - [Proveably Random Raffle Contracts](#proveably-random-raffle-contracts)
       - [About](#about)
       - [What we want it to do?](#what-we-want-it-to-do)
       - [Tests](#tests)
-      - [For easy debuggging purpose,](#for-easy-debuggging-purpose)
+      - [For easy debuggging purpose](#for-easy-debuggging-purpose)
       - [create a coverage.txt file](#create-a-coveragetxt-file)
-      - [Tests that need to be covered ,](#tests-that-need-to-be-covered-)
-      - [To test your smart contracts,](#to-test-your-smart-contracts)
+      - [Tests that need to be covered](#tests-that-need-to-be-covered)
+      - [To test your smart contracts](#to-test-your-smart-contracts)
 - [Foundry Smart Contract Lottery](#foundry-smart-contract-lottery)
 - [Table of contents](#table-of-contents)
 - [Getting Started](#getting-started)
@@ -74,7 +80,6 @@ This code is to create a proveably random smart contract lottery
   - [Scripts](#scripts)
   - [Estimate gas](#estimate-gas)
 - [Formatting](#formatting)
-    - [@Jonas-sebera](#jonas-sebera)
 
 # Getting Started
 
@@ -86,9 +91,9 @@ make anvil
 
 ## Library
 
-If you're having a hard time installing the chainlink library, you can optionally run this command. 
+If you're having a hard time installing the chainlink library, you can optionally run this command.
 
-```
+```sh
 forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
 ```
 
@@ -96,7 +101,7 @@ forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
 
 This will default to your local node. You need to have it running in another terminal in order for it to deploy.
 
-```
+```sh
 make deploy
 ```
 
@@ -113,19 +118,19 @@ make deploy
 
 This repo I cover #1 and #3.
 
-```
+```sh
 forge test
 ```
 
 or
 
-```
+```sh
 forge test --fork-url $SEPOLIA_RPC_URL
 ```
 
 ### Test Coverage
 
-```
+```sh
 forge coverage
 ```
 
@@ -147,7 +152,7 @@ Head over to [faucets.chain.link](https://faucets.chain.link/) and get some test
 
 2. Deploy
 
-```
+```sh
 make deploy ARGS="--network sepolia"
 ```
 
@@ -167,13 +172,13 @@ After deploying to a testnet or local net, you can run the scripts.
 
 Using cast deployed locally example:
 
-```
+```sh
 cast send <RAFFLE_CONTRACT_ADDRESS> "enterRaffle()" --value 0.1ether --private-key <PRIVATE_KEY> --rpc-url $SEPOLIA_RPC_URL
 ```
 
 or, to create a ChainlinkVRF Subscription:
 
-```
+```sh
 make createSubscription ARGS="--network sepolia"
 ```
 
@@ -181,7 +186,7 @@ make createSubscription ARGS="--network sepolia"
 
 You can estimate how much gas things cost by running:
 
-```
+```sh
 forge snapshot
 ```
 
@@ -191,10 +196,11 @@ And you'll see an output file called `.gas-snapshot`
 
 To run code formatting:
 
-```
+```sh
 forge fmt
 
 ```
+
 <hr>
 
-### @Jonas-sebera
+ @Jonas-sebera
