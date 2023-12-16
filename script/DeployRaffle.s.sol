@@ -2,14 +2,14 @@
 pragma solidity ^0.8.19;
 
 /**
-*@author @Jonas-sebera 
-@dev This is the contract used to deploy our src contract Raffle
-*/
+ * @author @Jonas-sebera
+ * @dev This is the contract used to deploy our src contract Raffle
+ */
 
-import { Script, console } from "forge-std/Script.sol";
-import { HelperConfig } from "./HelperConfig.s.sol";
-import { Raffle } from "../src/Raffle.sol";
-import { AddConsumer, CreateSubscription, FundSubscription } from "./Interactions.s.sol";
+import {Script, console} from "forge-std/Script.sol";
+import {HelperConfig} from "./HelperConfig.s.sol";
+import {Raffle} from "../src/Raffle.sol";
+import {AddConsumer, CreateSubscription, FundSubscription} from "./Interactions.s.sol";
 
 contract DeployRaffle is Script {
     function run() external returns (Raffle, HelperConfig) {
@@ -28,18 +28,10 @@ contract DeployRaffle is Script {
 
         if (subscriptionId == 0) {
             CreateSubscription createSubscription = new CreateSubscription();
-            subscriptionId = createSubscription.createSubscription(
-                vrfCoordinatorV2,
-                deployerKey
-            );
+            subscriptionId = createSubscription.createSubscription(vrfCoordinatorV2, deployerKey);
 
             FundSubscription fundSubscription = new FundSubscription();
-            fundSubscription.fundSubscription(
-                vrfCoordinatorV2,
-                subscriptionId,
-                link,
-                deployerKey
-            );
+            fundSubscription.fundSubscription(vrfCoordinatorV2, subscriptionId, link, deployerKey);
         }
 
         vm.startBroadcast(deployerKey);
@@ -54,12 +46,7 @@ contract DeployRaffle is Script {
         vm.stopBroadcast();
 
         // We already have a broadcast in here
-        addConsumer.addConsumer(
-            address(raffle),
-            vrfCoordinatorV2,
-            subscriptionId,
-            deployerKey
-        );
+        addConsumer.addConsumer(address(raffle), vrfCoordinatorV2, subscriptionId, deployerKey);
         return (raffle, helperConfig);
     }
 }

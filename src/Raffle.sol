@@ -3,27 +3,23 @@
 pragma solidity ^0.8.19;
 
 /**
-*@author @Jonas-sebera 
-*@dev This contract allows the players to interact with lottery basically
-*/
+ * @author @Jonas-sebera
+ * @dev This contract allows the players to interact with lottery basically
+ */
 
-import { VRFCoordinatorV2Interface } from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-import { VRFConsumerBaseV2 } from "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
-import { AutomationCompatibleInterface } from "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
+import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 
-/**@title A sample Raffle Contract
+/**
+ * @title A sample Raffle Contract
  * @author Jonas Sebera
  * @notice This contract is for creating a sample raffle contract
  * @dev This implements the Chainlink VRF Version 2
  */
 contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
-    
     /* Errors */
-    error Raffle__UpkeepNotNeeded(
-        uint256 currentBalance,
-        uint256 numPlayers,
-        uint256 raffleState
-    );
+    error Raffle__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
     error Raffle__TransferFailed();
     error Raffle__SendMoreToEnterRaffle();
     error Raffle__RaffleNotOpen();
@@ -35,6 +31,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     }
     /* State variables */
     // Chainlink VRF Variables
+
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     uint64 private immutable i_subscriptionId;
     bytes32 private immutable i_gasLane;
@@ -98,13 +95,11 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
      * 3. The contract has ETH.
      * 4. Implicity, your subscription is funded with LINK.
      */
-    function checkUpkeep(
-        bytes memory /* checkData */
-    )
+    function checkUpkeep(bytes memory /* checkData */ )
         public
         view
         override
-        returns (bool upkeepNeeded, bytes memory /* performData */)
+        returns (bool upkeepNeeded, bytes memory /* performData */ )
     {
         bool isOpen = RaffleState.OPEN == s_raffleState;
         bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
@@ -118,25 +113,17 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
      * @dev Once `checkUpkeep` is returning `true`, this function is called
      * and it kicks off a Chainlink VRF call to get a random winner.
      */
-    function performUpkeep(bytes calldata /* performData */) external override {
-        (bool upkeepNeeded, ) = checkUpkeep("");
+    function performUpkeep(bytes calldata /* performData */ ) external override {
+        (bool upkeepNeeded,) = checkUpkeep("");
         // require(upkeepNeeded, "Upkeep not needed");
         if (!upkeepNeeded) {
-            revert Raffle__UpkeepNotNeeded(
-                address(this).balance,
-                s_players.length,
-                uint256(s_raffleState)
-            );
+            revert Raffle__UpkeepNotNeeded(address(this).balance, s_players.length, uint256(s_raffleState));
         }
         s_raffleState = RaffleState.CALCULATING;
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane,
-            i_subscriptionId,
-            REQUEST_CONFIRMATIONS,
-            i_callbackGasLimit,
-            NUM_WORDS
+            i_gasLane, i_subscriptionId, REQUEST_CONFIRMATIONS, i_callbackGasLimit, NUM_WORDS
         );
-        
+
         emit RequestedRaffleWinner(requestId);
     }
 
@@ -144,11 +131,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
      * @dev This is the function that Chainlink VRF node
      * calls to send the money to the random winner.
      */
-    function fulfillRandomWords(
-        uint256 /* requestId */,
-        uint256[] memory randomWords
-    ) internal override {
-        
+    function fulfillRandomWords(uint256, /* requestId */ uint256[] memory randomWords) internal override {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable recentWinner = s_players[indexOfWinner];
         s_recentWinner = recentWinner;
@@ -156,14 +139,16 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
         emit WinnerPicked(recentWinner);
-        (bool success, ) = recentWinner.call{value: address(this).balance}("");
+        (bool success,) = recentWinner.call{value: address(this).balance}("");
         // require(success, "Transfer failed");
         if (!success) {
             revert Raffle__TransferFailed();
         }
     }
 
-    /** Getter Functions */
+    /**
+     * Getter Functions
+     */
 
     function getRaffleState() public view returns (RaffleState) {
         return s_raffleState;
