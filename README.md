@@ -1,8 +1,4 @@
-Author: @Jonas-sebera
-
- ----------------
-
-### foundry-f23-lottery
+# foundry-f23-lottery
 
 A foundry-f23 lottery project with transparent smart contracts
 
@@ -50,40 +46,36 @@ This code is to create a proveably random smart contract lottery
      forge test -m function_Name -vvv
      make test   
 
-<!-- @format -->
-
-# Foundry Smart Contract Lottery
-
-# Table of contents
+## Table of contents
 
 - [foundry-f23-lottery](#foundry-f23-lottery)
-      - [Proveably Random Raffle Contracts](#proveably-random-raffle-contracts)
-      - [About](#about)
-      - [What we want it to do?](#what-we-want-it-to-do)
+  - [About](#about)
+    - [What we want it to do?](#what-we-want-it-to-do)
       - [Tests](#tests)
       - [For easy debuggging purpose](#for-easy-debuggging-purpose)
       - [create a coverage.txt file](#create-a-coveragetxt-file)
       - [Tests that need to be covered](#tests-that-need-to-be-covered)
       - [To test your smart contracts](#to-test-your-smart-contracts)
-- [Foundry Smart Contract Lottery](#foundry-smart-contract-lottery)
-- [Table of contents](#table-of-contents)
-- [Getting Started](#getting-started)
+  - [Table of contents](#table-of-contents)
+  - [Getting Started](#getting-started)
   - [Start a local node](#start-a-local-node)
   - [Library](#library)
   - [Deploy](#deploy)
   - [Deploy - Other Network](#deploy---other-network)
   - [Testing](#testing)
     - [Test Coverage](#test-coverage)
-- [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
+  - [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
   - [Scripts](#scripts)
   - [Estimate gas](#estimate-gas)
-- [Formatting](#formatting)
+  - [Formatting](#formatting)
 
-# Getting Started
+<!-- @format -->
+
+## Getting Started
 
 ## Start a local node
 
-```
+```sh
 make anvil
 ```
 
@@ -132,7 +124,7 @@ forge test --fork-url $SEPOLIA_RPC_URL
 forge coverage
 ```
 
-# Deployment to a testnet or mainnet
+## Deployment to a testnet or mainnet
 
 1. Setup environment variables
 
@@ -148,7 +140,7 @@ Optionally, add your `ETHERSCAN_API_KEY` if you want to verify your contract on 
 
 Head over to [faucets.chain.link](https://faucets.chain.link/) and get some testnet ETH. You should see the ETH show up in your metamask.
 
-2. Deploy
+2.Deploy
 
 ```sh
 make deploy ARGS="--network sepolia"
@@ -156,7 +148,7 @@ make deploy ARGS="--network sepolia"
 
 This will setup a ChainlinkVRF Subscription for you. If you already have one, update it in the `scripts/HelperConfig.s.sol` file. It will also automatically add your contract as a consumer.
 
-3. Register a Chainlink Automation Upkeep
+3.Register a Chainlink Automation Upkeep
 
 [You can follow the documentation if you get lost.](https://docs.chain.link/chainlink-automation/compatible-contracts)
 
@@ -190,15 +182,14 @@ forge snapshot
 
 And you'll see an output file called `.gas-snapshot`
 
-# Formatting
+## Formatting
 
 To run code formatting:
 
 ```sh
 forge fmt
-
 ```
 
----
+----------------------
 
- @Jonas-sebera
+@0xJonaseb11
